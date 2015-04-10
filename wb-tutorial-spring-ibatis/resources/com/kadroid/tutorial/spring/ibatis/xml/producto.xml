@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="Producto">
+
+	<typeAlias alias="producto"
+		type="com.kadroid.tutorial.spring.ibatis.model.Producto" />
+
+	<select id="getProductos" resultClass="producto" parameterClass="producto">
+		SELECT
+		t.codigo_producto codigo_producto,
+		t.nombre_producto nombre_producto
+		FROM
+		TB_PRODUCTO t
+		ORDER BY t.codigo_producto asc
+	</select>
+
+	<select id="getProducto" resultClass="producto" parameterClass="producto">
+		SELECT
+		t.codigo_producto codigo_producto,
+		t.nombre_producto nombre_producto
+		FROM
+		TB_PRODUCTO t
+		WHERE
+		trim(t.codigo_producto) =trim(#codigo_producto#)
+	</select>
+
+	<insert id="addProducto" parameterClass="producto">
+		<selectKey resultClass="java.lang.String" keyProperty="codigo_producto">
+			SELECT (max(t.codigo_producto)+1) AS codigo_producto 
+	        FROM TB_PRODUCTO t
+      	</selectKey>     
+		INSERT into TB_PRODUCTO t(
+		t.codigo_producto,
+		t.nombre_producto
+		)
+		VALUES (#codigo_producto#,
+		#nombre_producto#
+		)
+	</insert>
+
+	<update id="updProducto" parameterClass="producto">
+		UPDATE TB_PRODUCTO t
+		SET t.nombre_producto = #nombre_producto#
+		WHERE t.codigo_producto = #codigo_producto#
+	</update>
+
+	<delete id="delProducto" parameterClass="producto">
+		DELETE FROM TB_PRODUCTO t
+		WHERE trim(t.codigo_producto) = trim(#codigo_producto#)
+	</delete>
+
+
+
+</sqlMap>
+

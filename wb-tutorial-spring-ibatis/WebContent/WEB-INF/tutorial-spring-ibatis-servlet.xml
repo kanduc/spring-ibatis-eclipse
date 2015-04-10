@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+                           
+    <!-- La etiqueta <context:component-scan> es la que especifica que usaremos anotaciones
+    para la definición de los beans, y que las clases que los definen van a estar en una serie 
+    de paquetes -->                       
+
+    <context:component-scan base-package="com.kadroid.tutorial.spring.ibatis" />
+
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:viewClass="org.springframework.web.servlet.view.JstlView"
+          p:prefix="/WEB-INF/jsp/"
+          p:suffix=".jsp"
+          p:exposeContextBeansAsAttributes="true"/>
+
+</beans>
